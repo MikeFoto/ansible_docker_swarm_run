@@ -1,0 +1,10 @@
+
+
+- name: remove  services from swarm
+  shell:
+    docker service rm {{ item.name}}
+  with_items:
+    - "{{ swarm_run.services.remove }}"
+  when:
+    swarm_run.services.remove  is defined and
+    item.name in running_services_com.stdout_lines

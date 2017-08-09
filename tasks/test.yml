@@ -1,0 +1,12 @@
+
+#
+# Top Level test
+- name: Run Test
+  shell:        " {{ item.command }}"
+  delegate_to:  localhost
+  become:       no
+  with_items:
+    - "{{ swarm_run.test }}"
+  when:
+    swarm_run.test is defined
+  changed_when:  False

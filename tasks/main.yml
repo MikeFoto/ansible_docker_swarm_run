@@ -1,0 +1,18 @@
+#
+# TODO:
+#   - update services
+
+#
+# Volumes
+- include: "set_facts_volumes.yml"
+- include: "create_volumes.yml"
+
+#
+# Services
+- include: "set_facts_services.yml"
+- include: "create_services.yml"
+- include: "remove_services.yml"
+
+#
+# Tests
+- include: "test.yml"

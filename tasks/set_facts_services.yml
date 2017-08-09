@@ -1,0 +1,6 @@
+
+- name: get running services
+  shell:
+    docker service ls  | grep -v 'NAME ' | cut -f 3 -d ' '
+  register: running_services_com
+  changed_when: False

@@ -1,0 +1,14 @@
+
+
+- name: Create services no swarm
+  shell:
+    docker service create
+      --name {{ item.name}}
+      {{ item.options }}
+      {{ item.image }}:{{ item.tag }}
+      {{ item.command | default("")}}
+  with_items:
+    - "{{ swarm_run.services.start }}"
+  when:
+    swarm_run.services.start  is defined and
+    item.name not in running_services_com.stdout_lines

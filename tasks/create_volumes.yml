@@ -1,0 +1,12 @@
+
+- name: debug1
+  debug:
+    msg: " volumes are {{ existing_volumes }}"
+- name: Create volumes in the  swarm
+  shell:
+    docker volume  create {{ item.name }}
+  with_items:
+    - "{{ swarm_run.volumes.create }}"
+  when:
+    swarm_run.volumes.create  is defined and
+    item.name not in existing_volumes.stdout_lines

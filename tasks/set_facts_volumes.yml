@@ -1,0 +1,6 @@
+
+- name: get existing volumes
+  shell:
+    docker volume ls  | grep -v 'NAME' | sed -e "s/\w*\s*//"
+  register: existing_volumes
+  changed_when: False
