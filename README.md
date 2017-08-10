@@ -15,18 +15,12 @@ Define the Configuration hash some place . Check Examples at defaults/main.yml.e
 ## Configuration Capabilities
 
 ### Example 1
-Create 2 volumes
-Start 1 service
-remove one service
+* Create 2 volumes
+* Start 1 service
+* remove one service
 
 ```yaml
 swarm_run1:                              # Generic example
-  documentation: |
-    * we can define any number of volumes and any option for each volume on *swarm_run.volumes.create*
-    * we can defined any number of services
-    ** with associated images
-    ** commands to run
-    ** service options
   volumes:
     create:                              # volumes List to be created
       - name:     demo_volume_1          # volume name
@@ -40,7 +34,7 @@ swarm_run1:                              # Generic example
       - name:     demo_service_1        # service name
         image:    alpine                # service image
         tag:      latest                # image tag
-        command:  "ping docker.com"
+        command:  "ping docker.com"     # Command to run on the image
         options:                             # Any service option can go here
                                              # see examples bellow
           --mount type=volume,source=demo_volume_1,destination=/tmp
