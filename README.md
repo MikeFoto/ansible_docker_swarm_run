@@ -20,3 +20,11 @@ docker service update --image redis:3.0.7 redis redis
 ```
 
 * tests
+
+# License
+
+MIT
+
+# Author Information
+
+Created by Miguel Rodrigues.
