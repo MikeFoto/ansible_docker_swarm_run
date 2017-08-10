@@ -20,7 +20,7 @@ Define the Configuration hash some place . Check Examples at defaults/main.yml.e
 * remove one service
 
 ```yaml
-swarm_run1:                              # Generic example
+swarm_run:                              # Generic example
   volumes:
     create:                              # volumes List to be created
       - name:     demo_volume_1          # volume name
@@ -62,6 +62,39 @@ swarm_run1:                              # Generic example
   #     volume-label="color=red",
   #     volume-label="shape=round" \
 
+```
+
+
+# Example 2
+* Load balancing btw 2 nginx servers  testing if they are running
+* demo the replicas options   and publishing public ports
+```yaml
+swarm_aux2:                              # aux values used in configuration
+  exposed_ports:
+    nginx1:         8080
+    nginx2:         8081
+
+swarm_run:
+  test:                   # List of command to run after deploy the services.
+                          #   Can be used for testing
+    - name:    test1
+      command: "curl --max-time 1 {{ swarm_manager_ip }}:{{ swarm_aux.exposed_ports.nginx1 }}"
+    - name:    test2
+      command: "curl --max-time 1 {{ swarm_manager_ip }}:{{ swarm_aux.exposed_ports.nginx2 }}"
+  services:
+    start:
+      - name:     demo2_nginx_1
+        image:    nginx
+        tag:      latest
+        options:
+          --replicas 3
+          --publish {{ swarm_aux.exposed_ports.nginx1 }}:80       # Access service on 8080 @ any swarm host
+      - name:     demo2_nginx_2
+        image:    nginx
+        tag:      latest
+        options:
+          --replicas 3
+          --publish {{ swarm_aux.exposed_ports.nginx2 }}:80       # Access service on 8081 @ any swarm host
 ```
 
 # TODO
