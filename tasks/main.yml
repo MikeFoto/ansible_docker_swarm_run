@@ -5,14 +5,26 @@
 #
 # Volumes
 - include: "set_facts_volumes.yml"
+  when:
+    swarm_run  is defined
 - include: "create_volumes.yml"
+  when:
+    swarm_run  is defined
 
 #
 # Services
 - include: "set_facts_services.yml"
+  when:
+    swarm_run  is defined
 - include: "create_services.yml"
+  when:
+    swarm_run  is defined
 - include: "remove_services.yml"
+  when:
+    swarm_run  is defined
 
 #
 # Tests
 - include: "test.yml"
+  when:
+    swarm_run  is defined

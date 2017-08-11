@@ -10,5 +10,6 @@
   with_items:
     - "{{ swarm_run.services.start }}"
   when:
+    swarm_run.services is defined and
     swarm_run.services.start  is defined and
     item.name not in running_services_com.stdout_lines
