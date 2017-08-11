@@ -8,5 +8,6 @@
   with_items:
     - "{{ swarm_run.volumes.create }}"
   when:
+    swarm_run.volumes         is defined and
     swarm_run.volumes.create  is defined and
     item.name not in existing_volumes.stdout_lines
