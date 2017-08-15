@@ -1,6 +1,10 @@
 
 - name: get running services
   shell:
-    docker service ls  | grep -v 'NAME ' | cut -f 3 -d ' '
+    docker service ls  | grep -v 'NAME ' | tr -s '[:space:]' | cut -f 2 -d " "
   register: running_services_com
   changed_when: False
+
+- name: debug1
+  debug:
+    msg: "Services running {{ running_services_com }}"

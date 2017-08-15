@@ -1,5 +1,9 @@
 
 
+- name: debug2
+  debug:
+    msg: "Services running {{ running_services_com }}"
+
 - name: Create services no swarm
   shell:
     docker service create
