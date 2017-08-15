@@ -6,7 +6,8 @@
 
 - name: download image if it does not exist
   shell:
-    docker pull {{ item.image }}:{{ item.tag  | latest  }}
+    docker pull {{ item.image }}
+    # :{{ item.tag  | latest  }}
   with_items:
     - "{{ swarm_run.services.start }}"
 
