@@ -4,6 +4,12 @@
   debug:
     msg: "Services running {{ running_services_com }}"
 
+- name: download image if it does not exist
+  shell:
+    docker pull {{ item.image }}:{{ item.tag  | latest  }}
+  with_items:
+    - "{{ swarm_run.services.start }}"
+
 - name: Create services no swarm
   shell:
     docker service create
