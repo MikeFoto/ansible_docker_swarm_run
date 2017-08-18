@@ -1,19 +1,27 @@
 
 # Notes
 
-# Containers
-
-# images
-
-## Remove container
+Previsous to run any example set if sudo if necessary
 ```bash
-sudo docker rm <ID>
+export SUDO="sudo" # revert order if sudo necessary
+export SUDO=""
 ```
 
-# Images
+## Containers
 
-## Find all tags for one image
+### Remove container
+```bash
+$SUDO docker rm <ID>
+```
 
+### Run one container
+```bash
+$SUDO docker rm <ID>
+```
+
+## Images
+
+### Find all tags for one image
 ```bash
 export REGISTRY=https://registry.hub.docker.com/v1/repositories
 export IMAGE_NAME=alpine
@@ -21,22 +29,30 @@ wget -q $REGISTRY/$IMAGE_NAME/tags -O -  | \
   sed -e 's/[][]//g' -e 's/"//g' -e 's/ //g' | \
   tr '}' '\n'  | \
   awk -F: '{print $3}'
-#wget -q https://registry.hub.docker.com/v1/repositories/alpine/tags -O -  | sed -e 's/[][]//g' -e 's/"//g' -e 's/ //g' | tr '}' '\n'  | awk -F: '{print $3}'
 ```
 
-## list all images
+### List all images
 ```bash
-sudo docker image list
+$SUDO docker image list
 ```
 
-## Find images dependent from base image
+### Find images dependent from base image
 ```bash
-export IMG=`sudo docker image list  | sed -e "s/ \+/ /g" | cut -f 3 -d " "`
-for i in $IMG; do sudo docker inspect --format='{{.Id}} + {{.Parent}}'  $i; done
-
+export IMG=`$SUDO docker image list  | sed -e "s/ \+/ /g" | cut -f 3 -d " "`
+for i in $IMG
+do
+  $SUDO docker inspect --format='{{.Id}} + {{.Parent}}'  $i
+done
 ```
 
-# Remove one image
+### Remove one image
 ```bash
-sudo docker rmi <image id >
+$SUDO docker rmi <image id >
+```
+
+### Run one image with bash ( or any command )
+```bash
+export IMAGE=python
+export COMMAND=/bin/bash
+$SUDO docker run -it python $COMMAND
 ```
