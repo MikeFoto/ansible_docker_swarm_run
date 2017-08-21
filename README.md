@@ -33,7 +33,7 @@ swarm_run:                              # Generic example
                                         #   change anything
       - name:     demo_service_1        # service name
         image:    alpine                # service image
-        tag:      latest                # image tag
+        tag:      latest                # optional image tag  ( default latest )
         command:  "ping docker.com"     # Command to run on the image
         options:                             # Any service option can go here
                                              # see examples bellow
