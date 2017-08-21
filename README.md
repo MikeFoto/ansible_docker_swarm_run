@@ -27,6 +27,19 @@ swarm_run:                              # Generic example
         option:   "none"                 # Any option to volume creation can be specified here
       - name:     demo_volume_2
         option:   "none"
+  test:                   # This test list is run after all the services are
+                          # created
+    - name:    test1      # basic testing to service1
+      command: |
+        curl --max-time 20 {{ swarm_manager_ip }}:{{ swarm_aux.exposed_ports.microservice1 }}
+    - name:    test2     # sequential test in same service
+      command: |
+        NUMTEST=100
+        TIMEOUT="0.1"
+        for i in {1..$NUMTEST}
+        do
+          curl --max-time $TIMEOUT {{ swarm_manager_ip }}:{{ swarm_aux.exposed_ports.microservice1  }}
+        done
   services:
     start:                              # define services here
                                         # if the service is running will not
@@ -39,7 +52,7 @@ swarm_run:                              # Generic example
                                              # see examples bellow
                                              # Important: if --detach=false only
                                              #    when service is ready will
-                                             #    exit 
+                                             #    exit
           --mount type=volume,source=demo_volume_1,destination=/tmp
           --replicas 1
           --update-delay 10s
