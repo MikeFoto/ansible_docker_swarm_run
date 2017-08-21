@@ -37,6 +37,9 @@ swarm_run:                              # Generic example
         command:  "ping docker.com"     # Command to run on the image
         options:                             # Any service option can go here
                                              # see examples bellow
+                                             # Important: if --detach=false only
+                                             #    when service is ready will
+                                             #    exit 
           --mount type=volume,source=demo_volume_1,destination=/tmp
           --replicas 1
           --update-delay 10s

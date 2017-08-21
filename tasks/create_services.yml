@@ -1,26 +1,10 @@
 
-
-- name: debug2
-  debug:
-    msg: "Services running {{ running_services_com }}"
-
-
-# - name: debug 1
-#   debug:
-#     msg: "docker service create --name {{ item.name}} {{ item.options }} {{ item.image }}:{{ item.tag  }} {{ item.command }}"
-#   with_items:
-#     - "{{ swarm_run.services.start }}"
-  when:
-    swarm_run.services is defined and
-    swarm_run.services.start  is defined and
-    item.name not in running_services_com.stdout_lines
-
 - name: Create services in swarm
   shell:
     docker service create
       --name {{ item.name}}
       {{ item.options }}
-      {{ item.image }}:{{ item.tag  | default{"latest"}}
+      {{ item.image }}:{{ item.tag  | default("latest") }}
       {{ item.command | default("")}}
   with_items:
     - "{{ swarm_run.services.start }}"
