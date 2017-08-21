@@ -28,7 +28,8 @@ swarm_run:                              # Generic example
       - name:     demo_volume_2
         option:   "none"
   test:                   # This test list is run after all the services are
-                          # created
+                          # created. Tests are runn from localhost (host
+                          #  invoking ansible )
     - name:    test1      # basic testing to service1
       command: |
         curl --max-time 20 {{ swarm_manager_ip }}:{{ swarm_aux.exposed_ports.microservice1 }}
