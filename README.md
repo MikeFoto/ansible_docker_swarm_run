@@ -181,7 +181,7 @@ docker service update --image redis:3.0.7 redis redis
 
 # License
 
-MIT
+GNU GPLv3 
 
 # Author Information
 
